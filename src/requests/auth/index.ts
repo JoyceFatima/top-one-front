@@ -1,8 +1,9 @@
 import api from "@/configs/api"
 import { ILogin } from "./auth.interface"
 import { IUser } from "@/interfaces"
+import { defineUser } from "@/mocks"
 
-class AuthRequests {
+export class AuthRequests {
   static async login(credentials: ILogin): Promise<IUser> {
     try {
       const response = await api.post("/auth/login", credentials)
@@ -14,6 +15,14 @@ class AuthRequests {
       throw error
     }
   }
+
+  static async getUser(token: string): Promise<IUser | undefined> {
+    try {
+      return defineUser(token)
+    }
+    catch (error) {
+      throw error
+    }
+  }
 }
 
-export default AuthRequests
