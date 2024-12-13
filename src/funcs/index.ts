@@ -1,1 +1,1 @@
-export * from './string.funcs'
+export * from './string.funcs';

@@ -1,10 +1,10 @@
-"use client"
-import { useTheme } from "@/hooks"
-import { Sun, Moon } from "lucide-react"
-import { Button } from "@/components/ui/button"
+'use client';
+import { useTheme } from '@/hooks';
+import { Sun, Moon } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export const ThemeToggle: React.FC = () => {
-  const { toggleTheme } = useTheme()
+  const { toggleTheme } = useTheme();
 
   return (
     <Button
@@ -17,5 +17,5 @@ export const ThemeToggle: React.FC = () => {
       <Moon className="hidden dark:block w-5 h-5 text-gray-200" />
       <Sun className="block dark:hidden w-5 h-5 text-black" />
     </Button>
-  )
-}
+  );
+};

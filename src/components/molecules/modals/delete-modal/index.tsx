@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import React, { FC } from 'react';
 import {
   Dialog,
   DialogTrigger,
@@ -6,9 +6,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-} from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { Children } from "@/types"
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Children } from '@/types';
 
 export const DeleteModal: FC<Children> = ({ children }) => {
   return (
@@ -29,5 +29,5 @@ export const DeleteModal: FC<Children> = ({ children }) => {
         </div>
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};

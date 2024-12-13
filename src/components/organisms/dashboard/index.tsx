@@ -1,41 +1,35 @@
-"use client";
+'use client';
 
-import React from "react";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-
+import React from 'react';
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 
 export const Dashboard: React.FC = () => {
   const summary = [
-    { title: "Total Sales", value: "$25,000", trend: "up" },
-    { title: "Total Orders", value: "1,200", trend: "up" },
-    { title: "Pending Orders", value: "150", trend: "down" },
-    { title: "Net Profit", value: "$10,500", trend: "up" },
+    { title: 'Total Sales', value: '$25,000', trend: 'up' },
+    { title: 'Total Orders', value: '1,200', trend: 'up' },
+    { title: 'Pending Orders', value: '150', trend: 'down' },
+    { title: 'Net Profit', value: '$10,500', trend: 'up' },
   ];
 
   const reports = [
     {
       id: 1,
-      date: "2024-01-10",
-      description: "Monthly sales report",
-      amount: "$5,000",
+      date: '2024-01-10',
+      description: 'Monthly sales report',
+      amount: '$5,000',
     },
     {
       id: 2,
-      date: "2024-01-11",
-      description: "Weekly profit report",
-      amount: "$1,200",
+      date: '2024-01-11',
+      description: 'Weekly profit report',
+      amount: '$1,200',
     },
     {
       id: 3,
-      date: "2024-01-12",
-      description: "Top-selling products",
-      amount: "$3,800",
+      date: '2024-01-12',
+      description: 'Top-selling products',
+      amount: '$3,800',
     },
   ];
 
@@ -63,10 +57,10 @@ export const Dashboard: React.FC = () => {
               <p className="text-2xl font-bold">{item.value}</p>
               <p
                 className={`text-sm ${
-                  item.trend === "up" ? "text-green-500" : "text-red-500"
+                  item.trend === 'up' ? 'text-green-500' : 'text-red-500'
                 }`}
               >
-                {item.trend === "up" ? "▲ Trending Up" : "▼ Trending Down"}
+                {item.trend === 'up' ? '▲ Trending Up' : '▼ Trending Down'}
               </p>
             </CardContent>
           </Card>

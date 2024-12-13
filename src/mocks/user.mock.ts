@@ -1,5 +1,5 @@
-import { Role } from "@/enums";
-import { IUser } from "@/interfaces";
+import { Role } from '@/enums';
+import { IUser } from '@/interfaces';
 
 export const seller: IUser = {
   id: '1',
@@ -24,15 +24,15 @@ export const admin: IUser = {
 export const defineUser = (email: string): IUser | undefined => {
   switch (email) {
     case seller.email: {
-        localStorage.setItem("token", email)
+      localStorage.setItem('token', email);
       return seller;
     }
     case admin.email: {
-        localStorage.setItem("token", email)
+      localStorage.setItem('token', email);
       return admin;
     }
     default: {
       return;
     }
   }
-}
+};

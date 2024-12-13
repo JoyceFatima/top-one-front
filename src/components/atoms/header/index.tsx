@@ -1,27 +1,27 @@
-"use client"
+'use client';
 
-import { FC } from "react"
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import { Menu, Trophy } from "lucide-react"
-import { useAuth, useSidebar, useTheme } from "@/hooks"
-import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar"
+import { FC } from 'react';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { Menu, Trophy } from 'lucide-react';
+import { useAuth, useSidebar, useTheme } from '@/hooks';
+import { Avatar, AvatarImage, AvatarFallback } from '@radix-ui/react-avatar';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
-import { ThemeToggle } from "@/components/molecules/theme-toggle"
-import { usePathname } from "@/i18n/routing"
-import { useParams, useRouter } from "next/navigation"
+} from '@/components/ui/popover';
+import { ThemeToggle } from '@/components/molecules/theme-toggle';
+import { usePathname } from '@/i18n/routing';
+import { useParams, useRouter } from 'next/navigation';
 
 export const Header: FC = () => {
-  const { push } = useRouter()
-  const { locale } = useParams()
-  const pathname = usePathname()
-  const { isMobile } = useTheme()
-  const { user, logout } = useAuth()
-  const { toggleSidebar } = useSidebar()
+  const { push } = useRouter();
+  const { locale } = useParams();
+  const pathname = usePathname();
+  const { isMobile } = useTheme();
+  const { user, logout } = useAuth();
+  const { toggleSidebar } = useSidebar();
 
   return (
     <header className="bg-slate-100 dark:bg-gray-800 text-black dark:text-white z-50 shadow-sm">
@@ -74,7 +74,7 @@ export const Header: FC = () => {
               </PopoverContent>
             </Popover>
           ) : (
-            !pathname.includes("login") && (
+            !pathname.includes('login') && (
               <Button
                 className="bg-gray-200 dark:bg-gray-700 text-black dark:text-white hover:bg-gray-300 dark:hover:bg-gray-600 shadow-none"
                 onClick={() => push(`${locale}/auth/login`)}
@@ -86,5 +86,5 @@ export const Header: FC = () => {
         </div>
       </div>
     </header>
-  )
-}
+  );
+};

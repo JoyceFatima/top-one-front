@@ -1,25 +1,25 @@
-"use client"
-import { LoadingSpinner } from "@/components/atoms"
-import { Button } from "@/components/ui/button"
+'use client';
+import { LoadingSpinner } from '@/components/atoms';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { useAuth, useToast } from "@/hooks"
-import { useRouter } from "next/navigation"
-import { useState } from "react"
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { useAuth, useToast } from '@/hooks';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 export function LoginForm() {
-  const { push } = useRouter()
-  const { login, user, } = useAuth()
-  const { toast } = useToast()
+  const { push } = useRouter();
+  const { login, user } = useAuth();
+  const { toast } = useToast();
 
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <Card className="mx-auto max-w-sm bg-white dark:bg-gray-800 text-black dark:text-white shadow-md">
@@ -33,23 +33,23 @@ export function LoginForm() {
       <CardContent>
         <form
           onSubmit={async (e) => {
-            e.preventDefault()
+            e.preventDefault();
             try {
-              setIsLoading(true)
+              setIsLoading(true);
 
-              const formData = new FormData(e.currentTarget)
-              const email = formData.get("email") as string
-              const password = formData.get("password") as string
+              const formData = new FormData(e.currentTarget);
+              const email = formData.get('email') as string;
+              const password = formData.get('password') as string;
 
-              await login(email, password)
-              push("/")
+              await login(email, password);
+              push('/');
             } catch {
               toast({
-                title: "Error",
-                description: "Invalid email or password",
-              })
+                title: 'Error',
+                description: 'Invalid email or password',
+              });
             } finally {
-              setIsLoading(false)
+              setIsLoading(false);
             }
           }}
         >
@@ -82,11 +82,11 @@ export function LoginForm() {
               className="w-full bg-slate-600 dark:bg-slate-700 text-white hover:bg-slate-700 dark:hover:bg-slate-800 shadow-md"
               disabled={isLoading}
             >
-              {isLoading ? "Loading..." : "Login"}
+              {isLoading ? 'Loading...' : 'Login'}
             </Button>
           </div>
         </form>
       </CardContent>
     </Card>
-  )
+  );
 }

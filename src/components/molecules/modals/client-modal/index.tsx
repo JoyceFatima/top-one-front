@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC } from 'react';
 import {
   Dialog,
   DialogTrigger,
@@ -6,10 +6,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Children } from "@/types";
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Children } from '@/types';
 
 export const AddClientModal: FC<Children> = ({ children }) => {
   return (
@@ -24,16 +24,26 @@ export const AddClientModal: FC<Children> = ({ children }) => {
         </DialogHeader>
         <div className="space-y-4">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-gray-700"
+            >
               Name
             </label>
             <Input id="name" placeholder="Michael Brown" />
           </div>
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700"
+            >
               Email
             </label>
-            <Input id="email" type="email" placeholder="michael.brown@example.com" />
+            <Input
+              id="email"
+              type="email"
+              placeholder="michael.brown@example.com"
+            />
           </div>
         </div>
         <div className="mt-6 flex justify-end space-x-2">

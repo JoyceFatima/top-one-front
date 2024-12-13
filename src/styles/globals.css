@@ -110,19 +110,18 @@ body {
 @layer utilities {
   ::-webkit-scrollbar-track {
     background: transparent;
-    }
-    
-    ::-webkit-scrollbar {
-      width: 10px;
-    }
-    
-    ::-webkit-scrollbar:horizontal {
-      display: none;
-    }
-    
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(#4158D0, #C850C0, #FFCC70);
-      border-radius: 20px;
-    }
-}
+  }
 
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar:horizontal {
+    display: none;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(#4158d0, #c850c0, #ffcc70);
+    border-radius: 20px;
+  }
+}

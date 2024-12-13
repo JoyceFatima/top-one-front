@@ -1,11 +1,11 @@
-"use client"
+'use client';
 
-import React, { useState } from "react";
-import { Pencil, Trash } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Breadcrumb, DeleteModal, Pagination, Status } from "@/components";
-import { AddProductModal } from "@/components/molecules/modals/product-modal";
-import { mockProducts } from "@/mocks";
+import React, { useState } from 'react';
+import { Pencil, Trash } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Breadcrumb, DeleteModal, Pagination, Status } from '@/components';
+import { AddProductModal } from '@/components/molecules/modals/product-modal';
+import { mockProducts } from '@/mocks';
 
 export default function Products() {
   const itemsPerPage = 10;
@@ -14,7 +14,7 @@ export default function Products() {
   const totalPages = Math.ceil(mockProducts.length / itemsPerPage);
   const displayedProducts = mockProducts.slice(
     (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
+    currentPage * itemsPerPage,
   );
 
   const handlePageChange = (page: number) => {
@@ -59,7 +59,7 @@ export default function Products() {
                 <td className="p-4">{product.discount}%</td>
                 <td className="p-4">{product.category}</td>
                 <td className="p-4">
-                  <Status status={product.isActive ? "active" : "inactive"} />
+                  <Status status={product.isActive ? 'active' : 'inactive'} />
                 </td>
                 <td className="p-4 flex space-x-2">
                   <button className="text-blue-500 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300">

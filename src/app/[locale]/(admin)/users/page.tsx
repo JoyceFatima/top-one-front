@@ -1,30 +1,30 @@
-"use client"
+'use client';
 
-import React, { useState } from "react";
-import { Pencil, Trash } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Breadcrumb, DeleteModal, Pagination } from "@/components";
-import { AddUserModal } from "@/components/molecules/modals/user-modal";
+import React, { useState } from 'react';
+import { Pencil, Trash } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Breadcrumb, DeleteModal, Pagination } from '@/components';
+import { AddUserModal } from '@/components/molecules/modals/user-modal';
 
 export default function Users() {
   const users = [
-    { id: 1, name: "John Doe", email: "john@example.com" },
-    { id: 2, name: "Jane Smith", email: "jane@example.com" },
-    { id: 3, name: "Alice Johnson", email: "alice@example.com" },
+    { id: 1, name: 'John Doe', email: 'john@example.com' },
+    { id: 2, name: 'Jane Smith', email: 'jane@example.com' },
+    { id: 3, name: 'Alice Johnson', email: 'alice@example.com' },
   ];
 
-    const itemsPerPage = 10;
-    const [currentPage, setCurrentPage] = useState(1);
-  
-    const totalPages = Math.ceil(users.length / itemsPerPage);
-    const displayedUsers = users.slice(
-      (currentPage - 1) * itemsPerPage,
-      currentPage * itemsPerPage
-    );
-  
-    const handlePageChange = (page: number) => {
-      setCurrentPage(page);
-    };
+  const itemsPerPage = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalPages = Math.ceil(users.length / itemsPerPage);
+  const displayedUsers = users.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage,
+  );
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   return (
     <div className="p-6 bg-white dark:bg-gray-900 text-black dark:text-white min-h-screen">
@@ -61,9 +61,9 @@ export default function Users() {
                     <Pencil className="w-4 h-4" />
                   </button>
                   <button className="text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300">
-                     <DeleteModal>
-                        <Trash className="w-4 h-4" />
-                      </DeleteModal>
+                    <DeleteModal>
+                      <Trash className="w-4 h-4" />
+                    </DeleteModal>
                   </button>
                 </td>
               </tr>

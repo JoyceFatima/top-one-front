@@ -1,5 +1,5 @@
-"use client"
-import React, { FC, useState } from "react"
+'use client';
+import React, { FC, useState } from 'react';
 import {
   Dialog,
   DialogTrigger,
@@ -7,62 +7,62 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Children } from "@/types"
-import { Status } from "@/enums"
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Children } from '@/types';
+import { Status } from '@/enums';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { capitalize } from "@/funcs"
-import { mockProducts } from "@/mocks"
+} from '@/components/ui/select';
+import { capitalize } from '@/funcs';
+import { mockProducts } from '@/mocks';
 
 interface IOrder {
-  id: string
-  totalPrice: number
-  status: Status
-  createdAt: Date
-  client: { name: string; email: string }
-  productId: string
+  id: string;
+  totalPrice: number;
+  status: Status;
+  createdAt: Date;
+  client: { name: string; email: string };
+  productId: string;
 }
 
 type Props = Children & {
-  order?: IOrder
-}
+  order?: IOrder;
+};
 
 export const OrderModal: FC<Props> = ({ children, order }) => {
   const [formData, setFormData] = useState({
-    clientName: order?.client.name || "",
+    clientName: order?.client.name || '',
     totalPrice: order?.totalPrice || 0,
-    productId: order?.productId || "",
+    productId: order?.productId || '',
     status: order?.status || Status.PROCESSING,
-  })
+  });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target
-    setFormData((prev) => ({ ...prev, [id]: value }))
-  }
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
+  };
 
   const handleStatusChange = (value: string) => {
-    setFormData((prev) => ({ ...prev, status: value as Status }))
-  }
+    setFormData((prev) => ({ ...prev, status: value as Status }));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     // Handle form submission logic here
-    console.log("Form data submitted:", formData)
-  }
+    console.log('Form data submitted:', formData);
+  };
 
-  const modalTitle = order ? "Edit Order" : "Add New Order"
+  const modalTitle = order ? 'Edit Order' : 'Add New Order';
   const modalDescription = order
-    ? "Edit the details below to update the order."
-    : "Fill in the details below to add a new order."
-  const actionButtonLabel = order ? "Save Changes" : "Add Order"
+    ? 'Edit the details below to update the order.'
+    : 'Fill in the details below to add a new order.';
+  const actionButtonLabel = order ? 'Save Changes' : 'Add Order';
 
   return (
     <Dialog>
@@ -171,5 +171,5 @@ export const OrderModal: FC<Props> = ({ children, order }) => {
         </form>
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};

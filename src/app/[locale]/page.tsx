@@ -1,8 +1,8 @@
-'use client'
+'use client';
 
-import { Dashboard, LoadingSpinner, Presentation } from "@/components";
-import { useAuth } from "@/hooks";
-import React from "react";
+import { Dashboard, LoadingSpinner, Presentation } from '@/components';
+import { useAuth } from '@/hooks';
+import React from 'react';
 
 export default function Home() {
   const { user, loading } = useAuth();
@@ -16,4 +16,4 @@ export default function Home() {
   }
 
   return <Dashboard />;
-};
+}

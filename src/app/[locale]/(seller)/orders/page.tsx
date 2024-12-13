@@ -1,57 +1,63 @@
-"use client"
+'use client';
 
-import React, { useState } from "react"
-import { Pencil, Trash } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Breadcrumb, Status, DeleteModal, OrderModal, Pagination } from "@/components"
-import { Role, Status as StatusEnum } from "@/enums"
-import { useAuth } from "@/hooks"
-import { useParams } from "next/navigation"
-import { customDayJs } from "@/configs"
+import React, { useState } from 'react';
+import { Pencil, Trash } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import {
+  Breadcrumb,
+  Status,
+  DeleteModal,
+  OrderModal,
+  Pagination,
+} from '@/components';
+import { Role, Status as StatusEnum } from '@/enums';
+import { useAuth } from '@/hooks';
+import { useParams } from 'next/navigation';
+import { customDayJs } from '@/configs';
 
 export default function Orders() {
-  const { locale } = useParams()
-  const { user } = useAuth()
+  const { locale } = useParams();
+  const { user } = useAuth();
 
   const orders = [
     {
-      id: "1",
+      id: '1',
       totalPrice: 150.5,
       status: StatusEnum.PROCESSING,
-      createdAt: new Date("2023-12-01"),
-      client: { name: "John Doe", email: "john.doe@example.com" },
-      productId: "1",
+      createdAt: new Date('2023-12-01'),
+      client: { name: 'John Doe', email: 'john.doe@example.com' },
+      productId: '1',
     },
     {
-      id: "2",
+      id: '2',
       totalPrice: 250.0,
       status: StatusEnum.SENT,
-      createdAt: new Date("2023-12-02"),
-      client: { name: "Jane Smith", email: "jane.smith@example.com" },
-      productId: "1",
+      createdAt: new Date('2023-12-02'),
+      client: { name: 'Jane Smith', email: 'jane.smith@example.com' },
+      productId: '1',
     },
     {
-      id: "3",
+      id: '3',
       totalPrice: 99.99,
       status: StatusEnum.DELIVERED,
-      createdAt: new Date("2023-12-03"),
-      client: { name: "Alice Johnson", email: "alice.johnson@example.com" },
-      productId: "1",
+      createdAt: new Date('2023-12-03'),
+      client: { name: 'Alice Johnson', email: 'alice.johnson@example.com' },
+      productId: '1',
     },
-  ]
+  ];
 
-     const itemsPerPage = 10;
-      const [currentPage, setCurrentPage] = useState(1);
-    
-      const totalPages = Math.ceil(orders.length / itemsPerPage);
-      const displayedOrders = orders.slice(
-        (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage
-      );
-    
-      const handlePageChange = (page: number) => {
-        setCurrentPage(page);
-      };
+  const itemsPerPage = 10;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalPages = Math.ceil(orders.length / itemsPerPage);
+  const displayedOrders = orders.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage,
+  );
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   return (
     <div className="p-6 bg-white dark:bg-gray-900 text-black dark:text-white min-h-screen">
@@ -94,7 +100,11 @@ export default function Orders() {
                 <td className="p-4">
                   <Status status={order.status as StatusEnum} />
                 </td>
-                <td className="p-4">{customDayJs(order.createdAt).locale(locale as string).format("LLL")}</td>
+                <td className="p-4">
+                  {customDayJs(order.createdAt)
+                    .locale(locale as string)
+                    .format('LLL')}
+                </td>
                 {user?.role === Role.SELLER && (
                   <td className="p-4 flex space-x-2">
                     <button className="text-blue-500 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300">
@@ -123,5 +133,5 @@ export default function Orders() {
         />
       </div>
     </div>
-  )
+  );
 }
