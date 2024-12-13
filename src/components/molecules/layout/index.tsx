@@ -1,23 +1,21 @@
 "use client"
-import Header from "@/components/atoms/header"
-import Page from "@/components/atoms/page"
-import Sidebar from "@/components/atoms/sidebar"
-import { useAuth } from "@/contexts"
+import { Header, Page, Sidebar } from "@/components"
+import { Toaster } from "@/components/ui/toaster"
+import { useAuth } from "@/hooks"
 import { Children } from "@/types"
 import React from "react"
 
-const Layout: React.FC<Children> = ({ children }) => {
+export const Layout: React.FC<Children> = ({ children }) => {
   const { user } = useAuth()
 
   return (
-    <div>
+    <div className="bg-white dark:bg-gray-900 text-black dark:text-white min-h-screen w-full">
       <Header />
-      <div className="flex">
+      <div className="flex w-full">
         {user && <Sidebar />}
         <Page>{children}</Page>
       </div>
+      <Toaster />
     </div>
   )
 }
-
-export default Layout

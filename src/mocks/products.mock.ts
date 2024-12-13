@@ -1,0 +1,32 @@
+export const mockProducts = [
+  {
+    id: "1",
+    name: "Product A",
+    description: "Description of Product A",
+    price: 99.99,
+    stock: 10,
+    discount: 5,
+    category: "Electronics",
+    isActive: true,
+  },
+  {
+    id: "2",
+    name: "Product B",
+    description: "Description of Product B",
+    price: 49.99,
+    stock: 25,
+    discount: 10,
+    category: "Books",
+    isActive: true,
+  },
+  {
+    id: "3",
+    name: "Product C",
+    description: "Description of Product C",
+    price: 29.99,
+    stock: 50,
+    discount: 0,
+    category: "Accessories",
+    isActive: false,
+  },
+];

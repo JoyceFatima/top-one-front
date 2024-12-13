@@ -1,19 +1,42 @@
-import { Home, Info, Mail } from "lucide-react"
+import { Role } from "@/enums"
+import { Boxes, Home, Users, Package, User } from "lucide-react"
 
 export const menus = [
   {
     icon: Home,
     title: "Home",
     link: "/",
+    accessBy: [],
   },
   {
-    icon: Info,
-    title: "About",
-    link: "/about",
+    icon: User,
+    title: "Users",
+    link: "/users",
+    accessBy: [Role.ADMIN],
   },
   {
-    icon: Mail,
-    title: "Contact",
-    link: "/contact",
+    icon: Package,
+    title: "Products",
+    link: "/products",
+    accessBy: [Role.ADMIN],
+  },
+  {
+    icon: Users,
+    title: "Clients",
+    link: "/clients",
+    accessBy: [Role.ADMIN],
+  },
+  {
+    icon: Boxes,
+    title: "Orders",
+    link: "/orders",
+    accessBy: [Role.SELLER],
   },
 ]
+
+export const filterMenu = (role?: Role) => {
+  if (!role) return menus.filter(({ accessBy }) => accessBy.length === 0);
+  return menus
+    .filter(({ accessBy }) => accessBy.includes(role))
+    .sort((a, b) => a.title.localeCompare(b.title))
+}
