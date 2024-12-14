@@ -34,9 +34,11 @@ export const menus = [
   },
 ];
 
-export const filterMenu = (role?: Role) => {
-  if (!role) return menus.filter(({ accessBy }) => accessBy.length === 0);
+export const filterMenu = (roles?: Role[]) => {
+  if (!roles?.length) return menus.filter(({ accessBy }) => accessBy.length === 0);
   return menus
-    .filter(({ accessBy }) => accessBy.includes(role))
+    .filter(({ accessBy }) => {
+      return roles.some((role) => accessBy.includes(role))
+    })
     .sort((a, b) => a.title.localeCompare(b.title));
 };

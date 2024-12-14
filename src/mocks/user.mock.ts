@@ -6,7 +6,18 @@ export const seller: IUser = {
   username: 'John Doe',
   email: 'seller@example.com',
   password: 'password',
-  role: Role.SELLER,
+  userRoles: [
+    {
+      id: '1',
+      role: {
+        id: '1',
+        name: Role.SELLER,
+        isActive: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    }
+  ],
   createdAt: new Date(),
   updatedAt: new Date(),
 };
@@ -16,7 +27,18 @@ export const admin: IUser = {
   username: 'John Doe',
   email: 'admin@example.com',
   password: 'password',
-  role: Role.ADMIN,
+  userRoles: [
+    {
+      id: '1',
+      role: {
+        id: '1',
+        name: Role.ADMIN,
+        isActive: true,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+    }
+  ],
   createdAt: new Date(),
   updatedAt: new Date(),
 };

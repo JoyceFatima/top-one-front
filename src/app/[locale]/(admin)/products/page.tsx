@@ -1,18 +1,22 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Pencil, Trash } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Breadcrumb, DeleteModal, Pagination, Status } from '@/components';
 import { AddProductModal } from '@/components/molecules/modals/product-modal';
-import { mockProducts } from '@/mocks';
+import { toast, useProductsApi } from '@/hooks';
+import { IProduct } from '@/interfaces';
 
 export default function Products() {
   const itemsPerPage = 10;
-  const [currentPage, setCurrentPage] = useState(1);
 
-  const totalPages = Math.ceil(mockProducts.length / itemsPerPage);
-  const displayedProducts = mockProducts.slice(
+  const { getAll, deleteProduct }   = useProductsApi()
+  const [currentPage, setCurrentPage] = useState(1);
+  const [products, setProducts] = useState<IProduct[]>([])
+
+  const totalPages = Math.ceil(products.length / itemsPerPage);
+  const displayedProducts = products.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage,
   );
@@ -20,6 +24,32 @@ export default function Products() {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
+
+  const getAllProducts = useCallback(async () => {
+    const res = await getAll()
+    setProducts(res)
+  }, [getAll])
+
+  const handleDeleteProduct = useCallback(async (id: string) => {
+    try {
+      await deleteProduct(id)
+      setProducts((prev) => prev.filter((product) => product.id !== id));
+      toast({
+        title: 'Success',
+        description: 'Product successfully deleted.',
+      });
+    } catch {
+      toast({
+        title: 'Error',
+        description: 'Error when delete product.',
+        variant: 'destructive'
+      });
+    }
+  }, [deleteProduct])
+
+  useEffect(() => {
+    getAllProducts()
+  }, [getAllProducts])
 
   return (
     <div className="p-6 bg-white dark:bg-gray-900 text-black dark:text-white min-h-screen">
@@ -47,14 +77,14 @@ export default function Products() {
             </tr>
           </thead>
           <tbody>
-            {displayedProducts.map((product) => (
+            {displayedProducts.length > 0 ? displayedProducts.map((product) => (
               <tr
                 key={product.id}
                 className="border-t border-gray-200 dark:border-gray-700"
               >
                 <td className="p-4">{product.id}</td>
                 <td className="p-4">{product.name}</td>
-                <td className="p-4">${product.price.toFixed(2)}</td>
+                <td className="p-4">${product.price}</td>
                 <td className="p-4">{product.stock}</td>
                 <td className="p-4">{product.discount}%</td>
                 <td className="p-4">{product.category}</td>
@@ -66,13 +96,19 @@ export default function Products() {
                     <Pencil className="w-4 h-4" />
                   </button>
                   <button className="text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300">
-                    <DeleteModal>
+                    <DeleteModal handleDelete={() => handleDeleteProduct(product.id)}>
                       <Trash className="w-4 h-4" />
                     </DeleteModal>
                   </button>
                 </td>
               </tr>
-            ))}
+            )): (
+              <tr>
+                <td colSpan={8} className="p-4 text-center">
+                  No products found
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

@@ -63,7 +63,7 @@ export const Header: FC = () => {
               <PopoverContent className="w-40 bg-white dark:bg-gray-700 text-black dark:text-white border-none">
                 <div className="p-2 mb-2">
                   <h2 className="font-semibold">{user.username}</h2>
-                  <h5 className="font-thin opacity-60">{user.role}</h5>
+                  <h5 className="font-thin opacity-60">{user.userRoles[0].role.name}</h5>
                 </div>
                 <Button
                   className="w-full bg-gray-200 dark:bg-gray-800 dark:text-white text-black hover:bg-gray-300 dark:hover:bg-gray-600 shadow-md"
