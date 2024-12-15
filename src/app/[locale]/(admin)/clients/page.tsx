@@ -4,10 +4,10 @@ import React, { useEffect, useState } from 'react';
 import { Pencil, Trash } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Breadcrumb, DeleteModal, Pagination } from '@/components';
-import { AddClientModal } from '@/components/molecules/modals/client-modal';
+import { ClientModal } from '@/components/molecules/modals/client-modal';
 import { useClientApi } from '@/hooks/use-client-api';
-import { IClient } from '@/requests/clients/client.interface';
 import { toast } from '@/hooks';
+import { IClient } from '@/interfaces';
 
 export default function Clients() {
   const { fetchClients, deleteClient } = useClientApi();
@@ -51,11 +51,11 @@ export default function Clients() {
     <div className="p-6 bg-white dark:bg-gray-900 text-black dark:text-white min-h-screen">
       <div className="flex justify-between items-center mb-6">
         <Breadcrumb title="Clients" />
-        <AddClientModal>
+        <ClientModal setClients={setClients}>
           <Button className="bg-slate-600 dark:bg-slate-700 text-white hover:bg-slate-700 dark:hover:bg-slate-800">
             Add New Client
           </Button>
-        </AddClientModal>
+        </ClientModal>
       </div>
 
       <div className="overflow-x-auto border rounded-lg shadow-md bg-white dark:bg-gray-800">
@@ -82,10 +82,12 @@ export default function Clients() {
                   <td className="p-4">{client.phone}</td>
                   <td className="p-4 flex space-x-2">
                     <button className="text-blue-500 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300">
-                      <Pencil className="w-4 h-4" />
+                      <ClientModal client={client} setClients={setClients}>
+                        <Pencil className="w-4 h-4" />
+                      </ClientModal>
                     </button>
                     <button className="text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300">
-                      <DeleteModal handleDelete={() => handleDeleteClient(client.id)}>
+                      <DeleteModal handleDelete={() => handleDeleteClient(client.id!)}>
                         <Trash className="w-4 h-4" />
                       </DeleteModal>
                     </button>

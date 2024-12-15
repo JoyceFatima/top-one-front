@@ -50,7 +50,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = () => {
     setUser(undefined)
     localStorage.removeItem("token")
-    push("/")
+    push("/auth/login")
   }
 
   const renewToken = async () => {

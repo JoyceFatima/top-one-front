@@ -1,10 +1,16 @@
-import { IProduct } from "@/interfaces";
+import { Status } from '@/enums';
 
-export interface IOrder {
-    id: string;
-    userId: string;
-    status: string;
-    total: number;
-    products: IProduct[];
+export interface ICreateOrder {
+  clientId: string;
+  products: ICreateOrderProducts[];
+  shoppingCarts: any[];
+}
 
+interface ICreateOrderProducts {
+  id: string;
+  quantity: number;
+}
+
+export interface IUpdateStatus {
+  status: Status;
 }

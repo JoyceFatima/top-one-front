@@ -1,8 +1,8 @@
-import {IOrder} from '@/interfaces'
+import {IOrder, IProduct} from '@/interfaces'
 
 export interface IOrderProducts {
-    id: string;
-    quantity: number;
-    product: Product;
-    order: IOrder;
+  id: string;
+  quantity: number;
+  product: IProduct;
+  order: IOrder;
 }

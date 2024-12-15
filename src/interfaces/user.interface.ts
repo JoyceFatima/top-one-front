@@ -1,10 +1,10 @@
 import { Role } from '@/enums';
 
 export interface IUser {
-  id: string;
+  id?: string;
   username: string;
   email: string;
-  password: string;
+  password?: string;
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;
@@ -23,5 +23,4 @@ interface IRole {
   createdAt: Date;
   updatedAt: Date;
   deletedAt?: Date;
-
 }

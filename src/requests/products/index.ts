@@ -20,7 +20,7 @@ export class ProductsRequests {
     }
   }
 
-  async createProduct(id: string, product: Partial<IProduct>): Promise<IProduct> {
+  async createProduct(product: Partial<IProduct>): Promise<IProduct> {
     try {
       const response = await api.post(`/products`, product);
       return response.data.data;
@@ -32,6 +32,15 @@ export class ProductsRequests {
   async updateProduct(id: string, product: Partial<IProduct>): Promise<IProduct> {
     try {
       const response = await api.put(`/products/${id}`, product);
+      return response.data.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async discountProduct(id: string, product: Partial<IProduct>): Promise<IProduct> {
+    try {
+      const response = await api.patch(`/products/${id}/discount`, product);
       return response.data.data;
     } catch (error) {
       throw error;

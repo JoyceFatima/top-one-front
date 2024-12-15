@@ -25,7 +25,8 @@ api.interceptors.response.use(
   },
   (error) => {
     if (error.response?.status === 401) {
-      window.location.href = '/auth/login';
+      localStorage.clear();
+      window.location.href = '/en/auth/login';
     }
     return Promise.reject(error);
   },

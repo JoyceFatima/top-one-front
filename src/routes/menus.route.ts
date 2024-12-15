@@ -1,5 +1,5 @@
 import { Role } from '@/enums';
-import { Boxes, Home, Users, Package, User } from 'lucide-react';
+import { Boxes, Home, Users, Package, User, ShieldAlert } from 'lucide-react';
 
 export const menus = [
   {
@@ -24,6 +24,12 @@ export const menus = [
     icon: Users,
     title: 'Clients',
     link: '/clients',
+    accessBy: [Role.ADMIN],
+  },
+  {
+    icon: ShieldAlert,
+    title: 'Roles',
+    link: '/roles',
     accessBy: [Role.ADMIN],
   },
   {

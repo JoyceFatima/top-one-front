@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Pencil, Trash } from 'lucide-react';
+import { Truck, Pencil, Trash } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Breadcrumb,
@@ -11,19 +11,27 @@ import {
   Pagination,
 } from '@/components';
 import { Role, Status as StatusEnum } from '@/enums';
-import { toast, useAuth } from '@/hooks';
+import { toast, useAuth, useClientApi, useProductApi } from '@/hooks';
 import { useParams } from 'next/navigation';
 import { customDayJs } from '@/configs';
 import { useOrderApi } from '@/hooks/use-order-api';
+import { IClient, IOrder, IProduct } from '@/interfaces';
+import { StatusModal } from '@/components/molecules/modals/status-modal';
 
 export default function Orders() {
-  const { fetchOrders, deleteOrder } = useOrderApi();
-  const [orders, setOrders] = useState([]);
   const { locale } = useParams();
+
   const { user } = useAuth();
+  const { fetchOrders, deleteOrder, updateStatus } = useOrderApi();
+  const { getAll } = useProductApi();
+  const { fetchClients } = useClientApi();
+
+  const [orders, setOrders] = useState<IOrder[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [products, setProducts] = useState<IProduct[]>([]);
+  const [clients, setClients] = useState<IClient[]>([]);
 
   const itemsPerPage = 10;
-  const [currentPage, setCurrentPage] = useState(1);
 
   const totalPages = Math.ceil(orders.length / itemsPerPage);
   const displayedOrders = orders.slice(
@@ -53,16 +61,22 @@ export default function Orders() {
     }
   };
 
+  const getData = async () => {
+    fetchOrders(user?.id ?? '').then((data) => setOrders(data));
+    getAll().then((data) => setProducts(data));
+    fetchClients().then((data) => setClients(data));
+  }
+
   useEffect(() => {
-    fetchOrders().then((data) => setOrders(data));
-  }, [fetchOrders]);
+    getData();
+  }, [fetchOrders, user]);
 
   return (
     <div className="p-6 bg-white dark:bg-gray-900 text-black dark:text-white min-h-screen">
       <div className="flex justify-between items-center mb-6">
         <Breadcrumb title="Orders" />
         {user?.userRoles[0]?.role.name === Role.SELLER && (
-          <OrderModal>
+          <OrderModal clients={clients} products={products} user={user} fetchOrders={getData}>
             <Button className="bg-slate-600 dark:bg-slate-700 text-white hover:bg-slate-700 dark:hover:bg-slate-800 shadow-md">
               Add New Order
             </Button>
@@ -92,9 +106,9 @@ export default function Orders() {
                 className="border-t border-gray-200 dark:border-gray-700"
               >
                 <td className="p-4">{order.id}</td>
-                <td className="p-4">{order.client.name}</td>
-                <td className="p-4">{order.client.email}</td>
-                <td className="p-4">${order.totalPrice.toFixed(2)}</td>
+                <td className="p-4">{order?.client?.name ?? ''}</td>
+                <td className="p-4">{order?.client?.email ?? ''}</td>
+                <td className="p-4">{order.totalPrice}</td>
                 <td className="p-4">
                   <Status status={order.status as StatusEnum} />
                 </td>
@@ -106,7 +120,7 @@ export default function Orders() {
                 {user?.userRoles[0]?.role.name === Role.SELLER && (
                   <td className="p-4 flex space-x-2">
                     <button className="text-blue-500 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300">
-                      <OrderModal order={order}>
+                      <OrderModal order={order} clients={clients} products={products} user={user} fetchOrders={getData}>
                         <Pencil className="w-4 h-4" />
                       </OrderModal>
                     </button>
@@ -114,6 +128,11 @@ export default function Orders() {
                       <DeleteModal handleDelete={() => handleDeleteOrder(order.id)}>
                         <Trash className="w-4 h-4" />
                       </DeleteModal>
+                    </button>
+                    <button className="text-yellow-500 dark:text-yellow-400 hover:text-yellow-700 dark:hover:text-yellow-300">
+                      <StatusModal handleStatus={updateStatus} fetchOrders={getData} order={order}>
+                        <Truck className="w-4 h-4" />
+                      </StatusModal>
                     </button>
                   </td>
                 )}
