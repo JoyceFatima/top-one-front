@@ -13,4 +13,12 @@ export class UsersRequests {
       throw error;
     }
   }
+
+  async deleteUser(id: string): Promise<void> {
+    try {
+      await api.delete(`/users/${id}`);
+    } catch (error) {
+      throw error;
+    }
+  }
 }

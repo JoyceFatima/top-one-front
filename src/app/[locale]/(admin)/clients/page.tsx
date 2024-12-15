@@ -32,7 +32,7 @@ export default function Clients() {
       toast({
         title: 'Success',
         description: 'Client successfully deleted.',
-        color: 'green',
+        variant: 'default',
       });
     } catch {
       toast({

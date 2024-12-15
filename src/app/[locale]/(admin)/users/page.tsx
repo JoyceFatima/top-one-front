@@ -9,10 +9,11 @@ import { IUser } from '@/requests/users/user.interface';
 import { useUserApi } from '@/hooks/use-user-api';
 import { customDayJs } from '@/configs';
 import { useParams } from 'next/navigation';
+import { toast } from '@/hooks';
 
 export default function Users() {
   const { locale } = useParams();
-  const { fetchUsers } = useUserApi();
+  const { fetchUsers, deleteUser } = useUserApi();
   const [users, setUsers] = useState<IUser[]>([]);
 
   const itemsPerPage = 10;
@@ -26,6 +27,24 @@ export default function Users() {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
+  };
+
+  const handleDeleteUsers = async (id: string) => {
+    try {
+      await deleteUser(id);
+      setUsers((prev) => prev.filter((user) => user.id !== id));
+      toast({
+        title: 'Success',
+        description: 'Users successfully deleted.',
+        variant: 'default',
+      });
+    } catch {
+      toast({
+        title: 'Error',
+        description: 'Failed to delete Users.',
+        variant: 'destructive',
+      });
+    }
   };
 
   useEffect(() => {
@@ -84,7 +103,7 @@ export default function Users() {
                       <Pencil className="w-4 h-4" />
                     </button>
                     <button className="text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300">
-                      <DeleteModal>
+                      <DeleteModal handleDelete={() => handleDeleteUsers(user.id)}>
                         <Trash className="w-4 h-4" />
                       </DeleteModal>
                     </button>

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Pencil, Trash } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -11,40 +11,16 @@ import {
   Pagination,
 } from '@/components';
 import { Role, Status as StatusEnum } from '@/enums';
-import { useAuth } from '@/hooks';
+import { toast, useAuth } from '@/hooks';
 import { useParams } from 'next/navigation';
 import { customDayJs } from '@/configs';
+import { useOrderApi } from '@/hooks/use-order-api';
 
 export default function Orders() {
+  const { fetchOrders, deleteOrder } = useOrderApi();
+  const [orders, setOrders] = useState([]);
   const { locale } = useParams();
   const { user } = useAuth();
-
-  const orders = [
-    {
-      id: '1',
-      totalPrice: 150.5,
-      status: StatusEnum.PROCESSING,
-      createdAt: new Date('2023-12-01'),
-      client: { name: 'John Doe', email: 'john.doe@example.com' },
-      productId: '1',
-    },
-    {
-      id: '2',
-      totalPrice: 250.0,
-      status: StatusEnum.SENT,
-      createdAt: new Date('2023-12-02'),
-      client: { name: 'Jane Smith', email: 'jane.smith@example.com' },
-      productId: '1',
-    },
-    {
-      id: '3',
-      totalPrice: 99.99,
-      status: StatusEnum.DELIVERED,
-      createdAt: new Date('2023-12-03'),
-      client: { name: 'Alice Johnson', email: 'alice.johnson@example.com' },
-      productId: '1',
-    },
-  ];
 
   const itemsPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
@@ -59,11 +35,33 @@ export default function Orders() {
     setCurrentPage(page);
   };
 
+  const handleDeleteOrder = async (id: string) => {
+    try {
+      await deleteOrder(id);
+      setOrders((prev) => prev.filter((order) => order.id !== id));
+      toast({
+        title: 'Success',
+        description: 'Order successfully deleted.',
+        variant: 'default',
+      });
+    } catch {
+      toast({
+        title: 'Error',
+        description: 'Failed to delete Order.',
+        variant: 'destructive',
+      });
+    }
+  };
+
+  useEffect(() => {
+    fetchOrders().then((data) => setOrders(data));
+  }, [fetchOrders]);
+
   return (
     <div className="p-6 bg-white dark:bg-gray-900 text-black dark:text-white min-h-screen">
       <div className="flex justify-between items-center mb-6">
         <Breadcrumb title="Orders" />
-        {user?.role === Role.SELLER && (
+        {user?.userRoles[0]?.role.name === Role.SELLER && (
           <OrderModal>
             <Button className="bg-slate-600 dark:bg-slate-700 text-white hover:bg-slate-700 dark:hover:bg-slate-800 shadow-md">
               Add New Order
@@ -82,7 +80,7 @@ export default function Orders() {
               <th className="text-left p-4">Total Price</th>
               <th className="text-left p-4">Status</th>
               <th className="text-left p-4">Created At</th>
-              {user?.role === Role.SELLER && (
+              {user?.userRoles[0]?.role.name === Role.SELLER && (
                 <th className="text-left p-4">Actions</th>
               )}
             </tr>
@@ -105,7 +103,7 @@ export default function Orders() {
                     .locale(locale as string)
                     .format('LLL')}
                 </td>
-                {user?.role === Role.SELLER && (
+                {user?.userRoles[0]?.role.name === Role.SELLER && (
                   <td className="p-4 flex space-x-2">
                     <button className="text-blue-500 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300">
                       <OrderModal order={order}>
@@ -113,7 +111,7 @@ export default function Orders() {
                       </OrderModal>
                     </button>
                     <button className="text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300">
-                      <DeleteModal>
+                      <DeleteModal handleDelete={() => handleDeleteOrder(order.id)}>
                         <Trash className="w-4 h-4" />
                       </DeleteModal>
                     </button>
