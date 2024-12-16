@@ -1,1 +1,1 @@
-export * from "./menus.route"
+export * from './menus.route';

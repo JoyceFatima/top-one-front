@@ -3,9 +3,8 @@
 import React, { createContext, useState, ReactNode, useEffect } from "react"
 import { AuthRequests } from "@/requests"
 import { IUser } from "@/interfaces"
-import { useRouter } from "next/navigation"
-import { defineUser } from "@/mocks"
 import { useToast } from "@/hooks/use-toast"
+import { useRouter } from "@/i18n/routing"
 
 type AuthContextType = {
   user: IUser | undefined
@@ -23,28 +22,26 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<IUser | undefined>(undefined)
 
   const login = async (
-    email: string
-    // password: string
+    email: string,
+    password: string
   ) => {
     try {
       setLoading(true)
-      // const response = await AuthRequests.login({ email, password })
-      // setUser(response)
-      const userMock = defineUser(email)
+      const response = await AuthRequests.login({ email, password })
 
-      if (!userMock) {
-        toast({
-          variant: "destructive",
-          title: "Error",
-          description: "Email or Password is incorrect",
-        })
-        return
+      if (!response) {
+        logout();
+        throw Error('Email or Password is incorrect!');
       }
 
-      setUser(userMock)
+      setUser(response)
       push("/")
-    } catch (error) {
-      throw error
+    } catch {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Email or Password is incorrect!",
+      })
     } finally {
       setLoading(false)
     }
@@ -53,24 +50,37 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = () => {
     setUser(undefined)
     localStorage.removeItem("token")
+    push("/auth/login")
   }
 
-  const getToken = async () => {
-    const token = localStorage.getItem("token")
+  const renewToken = async () => {
+    try {
 
-    if (!token) {
+      const token = localStorage.getItem("token")
+  
+  
+      if (!token) {
+        setLoading(false)
+        return
+      }
+  
+      const res = await AuthRequests.renewToken()
+      setUser(res)
+    } catch {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Your token is expired, please sign in!",
+      })
+      push('/auth/login')
+    } finally {
       setLoading(false)
-      return
     }
-
-    const res = await AuthRequests.getUser(token)
-    setUser(res)
-    setLoading(false)
   }
 
   useEffect(() => {
     setLoading(true)
-    getToken()
+    renewToken()
   }, [])
 
   return (

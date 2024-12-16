@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import React, { FC } from 'react';
 import {
   Dialog,
   DialogTrigger,
@@ -6,11 +6,15 @@ import {
   DialogHeader,
   DialogTitle,
   DialogDescription,
-} from "@/components/ui/dialog"
-import { Button } from "@/components/ui/button"
-import { Children } from "@/types"
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+import { Children } from '@/types';
 
-export const DeleteModal: FC<Children> = ({ children }) => {
+interface DeleteModalProps extends Children {
+  handleDelete?: () => void;
+}
+
+export const DeleteModal: FC<DeleteModalProps> = ({ children, handleDelete }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
@@ -25,9 +29,18 @@ export const DeleteModal: FC<Children> = ({ children }) => {
           <DialogTrigger asChild>
             <Button variant="outline">Cancel</Button>
           </DialogTrigger>
-          <Button>Delete</Button>
+          <Button
+            variant="destructive"
+            onClick={() => {
+              if (handleDelete) {
+                handleDelete();
+              }
+            }}
+          >
+            Delete
+          </Button>
         </div>
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};

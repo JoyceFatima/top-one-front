@@ -1,12 +1,12 @@
-"use client"
-import { Header, Page, Sidebar } from "@/components"
-import { Toaster } from "@/components/ui/toaster"
-import { useAuth } from "@/hooks"
-import { Children } from "@/types"
-import React from "react"
+'use client';
+import { Header, Page, Sidebar } from '@/components';
+import { Toaster } from '@/components/ui/toaster';
+import { useAuth } from '@/hooks';
+import { Children } from '@/types';
+import React from 'react';
 
 export const Layout: React.FC<Children> = ({ children }) => {
-  const { user } = useAuth()
+  const { user } = useAuth();
 
   return (
     <div className="bg-white dark:bg-gray-900 text-black dark:text-white min-h-screen w-full">
@@ -17,5 +17,5 @@ export const Layout: React.FC<Children> = ({ children }) => {
       </div>
       <Toaster />
     </div>
-  )
-}
+  );
+};

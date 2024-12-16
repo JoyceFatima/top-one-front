@@ -4,8 +4,8 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { FC } from "react";
+} from '@/components/ui/card';
+import { FC } from 'react';
 
 export const Presentation: FC = () => {
   return (

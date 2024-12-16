@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Pagination as PaginationShadcn,
   PaginationContent,
@@ -6,7 +6,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination"
+} from '@/components/ui/pagination';
 
 interface PaginationProps {
   currentPage: number;
@@ -60,7 +60,7 @@ export const Pagination: React.FC<PaginationProps> = ({
           <PaginationPrevious
             href="#"
             className={`${
-              currentPage === 1 ? "pointer-events-none opacity-50" : ""
+              currentPage === 1 ? 'pointer-events-none opacity-50' : ''
             }`}
             onClick={(e) => {
               e.preventDefault();
@@ -73,7 +73,7 @@ export const Pagination: React.FC<PaginationProps> = ({
           <PaginationNext
             href="#"
             className={`${
-              currentPage === totalPages ? "pointer-events-none opacity-50" : ""
+              currentPage === totalPages ? 'pointer-events-none opacity-50' : ''
             }`}
             onClick={(e) => {
               e.preventDefault();

@@ -1,7 +1,7 @@
-"use client";
-import React, { FC } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+'use client';
+import React, { FC } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 interface BreadcrumbProps {
   title?: string;
@@ -10,16 +10,16 @@ interface BreadcrumbProps {
 export const Breadcrumb: FC<BreadcrumbProps> = ({ title }) => {
   const pathname = usePathname();
 
-  const supportedLocales = ["en", "pt", "es"];
+  const supportedLocales = ['en', 'pt', 'es'];
 
   const [isLoading, setIsLoading] = React.useState(false);
 
   const pathSegments = pathname
-    .split("/")
+    .split('/')
     .filter((segment) => segment && !supportedLocales.includes(segment));
 
   const items = pathSegments.map((segment, index) => {
-    const href = "/" + pathSegments.slice(0, index + 1).join("/");
+    const href = '/' + pathSegments.slice(0, index + 1).join('/');
     const label = segment.charAt(0).toUpperCase() + segment.slice(1);
     return { label, href };
   });
@@ -38,7 +38,11 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({ title }) => {
           <li className="flex items-center">
             <Link
               href="/"
-              onClick={handleLoading} style={{ pointerEvents: isLoading ? 'none' : 'auto', opacity: isLoading ? 0.5 : 1 }}
+              onClick={handleLoading}
+              style={{
+                pointerEvents: isLoading ? 'none' : 'auto',
+                opacity: isLoading ? 0.5 : 1,
+              }}
               className="text-slate-500 dark:text-slate-400 hover:underline"
             >
               Home
@@ -50,7 +54,11 @@ export const Breadcrumb: FC<BreadcrumbProps> = ({ title }) => {
             <li key={item.href} className="flex items-center">
               <Link
                 href={item.href}
-                onClick={handleLoading} style={{ pointerEvents: isLoading ? 'none' : 'auto', opacity: isLoading ? 0.5 : 1 }}
+                onClick={handleLoading}
+                style={{
+                  pointerEvents: isLoading ? 'none' : 'auto',
+                  opacity: isLoading ? 0.5 : 1,
+                }}
                 className="text-slate-500 dark:text-slate-400 hover:underline"
               >
                 {item.label}

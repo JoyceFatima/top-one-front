@@ -1,7 +1,7 @@
-'use client'
-import { LoadingSpinner } from "@/components";
-import { useParams, useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+'use client';
+import { LoadingSpinner } from '@/components';
+import { useParams, useRouter } from 'next/navigation';
+import React, { useEffect } from 'react';
 
 export default function Home() {
   const { locale } = useParams();
@@ -12,4 +12,4 @@ export default function Home() {
   }, [locale, push]);
 
   return <LoadingSpinner />;
-};
+}

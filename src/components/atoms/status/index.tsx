@@ -1,16 +1,16 @@
-import React from "react";
+import React from 'react';
 
 interface StatusProps {
-  status: "active" | "inactive" | "processing" | "sent" | "delivered";
+  status: 'active' | 'inactive' | 'processing' | 'sent' | 'delivered';
 }
 
 export const Status: React.FC<StatusProps> = ({ status }) => {
   const statusStyles: Record<string, string> = {
-    active: "bg-green-100 text-green-700",
-    inactive: "bg-red-100 text-red-700",
-    processing: "bg-yellow-100 text-yellow-700",
-    sent: "bg-blue-100 text-blue-700",
-    delivered: "bg-purple-100 text-purple-700",
+    active: 'bg-green-100 text-green-700',
+    inactive: 'bg-red-100 text-red-700',
+    processing: 'bg-yellow-100 text-yellow-700',
+    sent: 'bg-blue-100 text-blue-700',
+    delivered: 'bg-purple-100 text-purple-700',
   };
 
   return (
