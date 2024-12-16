@@ -100,7 +100,8 @@ export default function Orders() {
             </tr>
           </thead>
           <tbody>
-            {displayedOrders.map((order) => (
+          {displayedOrders.length > 0 ? (
+            displayedOrders.map((order) => (
               <tr
                 key={order.id}
                 className="border-t border-gray-200 dark:border-gray-700"
@@ -137,7 +138,14 @@ export default function Orders() {
                   </td>
                 )}
               </tr>
-            ))}
+            ))
+            ) : (
+              <tr>
+                <td colSpan={7} className="text-center p-4">
+                  No orders found!
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
